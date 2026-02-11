@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamic Habit Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>Habit Tracker</h1>
+
+<!-- Update Day Range -->
+<form action="/update_range" method="POST">
+    Start Day:
+    <input type="number" name="start_day" value="{{config.start_day}}" required>
+    End Day:
+    <input type="number" name="end_day" value="{{config.end_day}}" required>
+    <button type="submit">Save Range</button>
+</form>
+
+<br>
+
+<!-- Add Habit -->
+<form action="/add_habit" method="POST">
+    <input type="text" name="habit_name" placeholder="New Habit Name" required>
+    <button type="submit">Add Habit</button>
+</form>
+
+<br>
+
+<form method="POST">
+
+<div class="table-wrapper">
+<table>
+
+<tr>
+    <th>Habit / Day</th>
+    {% for day in days %}
+        <th>{{day}}</th>
+    {% endfor %}
+    <th>Remove</th>
+</tr>
+
+{% for habit in habits %}
+<tr>
+    <td>{{habit.name}}</td>
+
+    {% for day in days %}
+    <td>
+        <input type="checkbox" name="habit_{{habit.id}}_{{day}}">
+    </td>
+    {% endfor %}
+
+    <td>
+        <a href="/delete_habit/{{habit.id}}">
+            <button type="button">X</button>
+        </a>
+    </td>
+</tr>
+{% endfor %}
+
+</table>
+</div>
+
+<br>
+
+<button type="submit">Submit Tasks</button>
+
+</form>
+
+<br>
+<a href="/analysis">
+    <button>Analyze</button>
+</a>
+
+</body>
+</html>

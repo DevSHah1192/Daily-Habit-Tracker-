@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h1>Progress Analysis</h1>
+
+<h3>{{overall_completed}} / {{total_possible}} Completed</h3>
+
+<canvas id="lineChart"></canvas>
+<canvas id="barChart"></canvas>
+<canvas id="pieChart"></canvas>
+
+<script>
+
+const days = {{ days|tojson }};
+const dailyTotals = {{ daily_totals|tojson }};
+const habitTotals = {{ habit_totals|tojson }};
+const habitNames = {{ habit_names|tojson }};
+
+new Chart(document.getElementById('lineChart'), {
+    type: 'line',
+    data: {
+        labels: days,
+        datasets: [{
+            label: 'Daily Completion',
+            data: dailyTotals
+        }]
+    }
+});
+
+new Chart(document.getElementById('barChart'), {
+    type: 'bar',
+    data: {
+        labels: habitNames,
+        datasets: [{
+            label: 'Habit Totals',
+            data: habitTotals
+        }]
+    }
+});
+
+new Chart(document.getElementById('pieChart'), {
+    type: 'pie',
+    data: {
+        labels: ['Completed', 'Missed'],
+        datasets: [{
+            data: [{{overall_completed}}, {{total_possible - overall_completed}}]
+        }]
+    }
+});
+
+</script>
+
+<br>
+<a href="/"><button>Back</button></a>
+
+</body>
+</html>
