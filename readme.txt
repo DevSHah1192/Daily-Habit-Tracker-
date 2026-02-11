@@ -1,5 +1,3 @@
-Here is your README.txt content.
-You can copy and paste this directly into a file named README.txt.
 
 Dynamic Habit Tracker
 Full Stack Flask Web Application
@@ -87,4 +85,5 @@ Full-stack integration
 It focuses on solving a real-world productivity problem by building a structured system for discipline and consistency.
 
 Developer: Dev Shah
+
 Status: Active Development
